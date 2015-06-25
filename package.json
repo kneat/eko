@@ -1,0 +1,16 @@
+{
+  "name": "eko",
+  "version": "1.0.0",
+  "description": "RESTfull event log repeater",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NLog",
+    "console",
+    "log"
+  ],
+  "author": "Trevor Power",
+  "license": "ISC"
+}
