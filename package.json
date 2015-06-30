@@ -2,12 +2,12 @@
   "name": "eko",
   "version": "1.0.0",
   "description": "RESTfull event log repeater",
-  "main": "server.js",
+  "main": "eko.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "eko": "server.js"
+    "eko": "eko.js"
   },
   "keywords": [
     "NLog",
