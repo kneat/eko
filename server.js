@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-var command = require('commander')
+var program = require('commander')
 var express = require('express');
 var bodyParser = require('body-parser');
 var echoToConsole = require('./console')
 
-command
-  .option('-p', '--port', 'Port')
+program
+  .version('0.0.1')
+  .description('Repeat log events recieved over HTTP on the console.')
+  .option('-p, --port <num>', 'port to listen on, default is 4560', 4560)
   .parse(process.argv);
 
 var app = express();
@@ -17,7 +19,7 @@ app.post('/', echoToConsole, function (req, res) {
   res.status(204).end();
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(program.port, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('eko now listening at http://%s:%s', host, port);
