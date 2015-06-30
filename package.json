@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "eko": "server.js"
+  },
   "keywords": [
     "NLog",
     "console",
@@ -16,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.13.1",
     "colors": "^1.1.2",
+    "commander": "^2.8.1",
     "express": "^4.13.0"
   }
 }

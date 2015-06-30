@@ -1,6 +1,12 @@
+#!/usr/bin/env node
+var command = require('commander')
 var express = require('express');
 var bodyParser = require('body-parser');
 var echoToConsole = require('./console')
+
+command
+  .option('-p', '--port', 'Port')
+  .parse(process.argv);
 
 var app = express();
 
