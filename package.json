@@ -9,6 +9,10 @@
   "bin": {
     "eko": "eko.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kneat/eko.git"
+  },
   "keywords": [
     "NLog",
     "console",
