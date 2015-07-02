@@ -10,6 +10,7 @@ $ npm install -g eko
 
 ```bash
 $ eko
+eko is now listening at http://0.0.0.0:4560
 ```
 
 ## NLog
