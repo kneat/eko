@@ -1,21 +1,22 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var echoToConsole = require('./console')
+var echoToConsole = require('./lib/console')
 
 module.exports = function (port){
-	var app = express();
+  var app = express();
 
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({extended: false}));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}));
 
-	app.post('/', echoToConsole, function (req, res) {
-	  res.status(204).end();
-	});
+  app.post('/', function (req, res, next) {
+  	echoToConsole(req, res, next);
+    res.status(204).end();
+  });
 
-	var server = app.listen(port, function () {
-	  var host = server.address().address;
-	  var port = server.address().port;
-	  console.log('eko now listening at http://%s:%s', host, port);
-	});
+  var server = app.listen(port, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+    console.log('eko now listening at http://%s:%s', host, port);
+  });
 }
 
