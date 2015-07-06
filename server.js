@@ -1,15 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var echoToConsole = require('./lib/console')
 
-module.exports = function (port){
+module.exports = function (port, output){
   var app = express();
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
 
   app.post('/', function (req, res) {
-  	echoToConsole(req.body);
+  	output(req.body);
     res.status(204).end();
   });
 
