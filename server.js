@@ -8,8 +8,8 @@ module.exports = function (port){
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
 
-  app.post('/', function (req, res, next) {
-  	echoToConsole(req, res, next);
+  app.post('/', function (req, res) {
+  	echoToConsole(req.body);
     res.status(204).end();
   });
 
