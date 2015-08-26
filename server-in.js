@@ -13,9 +13,7 @@ module.exports = function (port, output){
   });
 
   var server = app.listen(port, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-    console.log('eko now listening at http://%s:%s', host, port);
+    console.log('POST http://localhost:%s/', server.address().port);
   });
 }
 
