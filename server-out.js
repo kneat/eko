@@ -16,5 +16,9 @@ module.exports = function (port, socket){
   var server = http.listen(port, function(test){
     console.log('GET http://localhost:%s/', server.address().port);
   });
+
+  return function(message){
+    io.emit('event', message);
+  };
 }
 

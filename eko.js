@@ -12,5 +12,9 @@ program
   .option('-b, --broadcast-port <num>', 'port to broadcast on, default is 4561', 4561)
   .parse(process.argv);
 
-serverIn(program.port, echoToConsole);
-serverOut(program.broadcastPort);
+var echoToSocket = serverOut(program.broadcastPort);
+
+serverIn(program.port, function(message){
+   echoToConsole(message);
+   echoToSocket(message);
+});

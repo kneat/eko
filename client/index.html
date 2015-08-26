@@ -1,10 +1,18 @@
 <!doctype html>
 <html>
-  <head>
-    <title>eko</title>
-  </head>
-  <body>
-    <h1>eko</h1>
-    <ul></ul>
-  </body>
+<head>
+  <title>eko</title>
+</head>
+<body>
+  <h1>eko</h1>
+  <ul></ul>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    var socket = io();
+    socket.on('event', function(msg){
+      $('ul').append($('<li>').text(msg.logger + ' ' + msg.level + ' ' + msg.message ));
+    });
+  </script>
+</body>
 </html>
