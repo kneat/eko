@@ -1,6 +1,6 @@
 {
   "name": "eko",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "listens for log events to come in over HTTP and then repeats them on the command line",
   "main": "eko.js",
   "scripts": {
@@ -9,6 +9,11 @@
   "bin": {
     "eko": "eko.js"
   },
+  "files": [
+    "eko.js", "server-in.js", "server-out.js",
+    "lib",
+    "client"
+  ],
   "preferGlobal": true,
   "repository": {
     "type": "git",
