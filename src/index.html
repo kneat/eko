@@ -9,13 +9,12 @@
   <h1>eko</h1>
   <ul></ul>
   <script src="/socket.io/socket.io.js"></script>
-  <!-- bower:js -->
-  <!-- endbower -->
+  <script src="core.js"></script>
   <script>
     var socket = io();
     socket.on('event', function(msg){
       $('ul').append($('<li>').text(msg.logger + ' ' + msg.level + ' ' + msg.message ));
     });
-  </script>
+  </script>  
 </body>
 </html>
