@@ -1,4 +1,5 @@
 {
+  "name": "eko",
   "dependencies": {
     "bootstrap": "~3.3.5"
   }

@@ -2,12 +2,15 @@
 <html>
 <head>
   <title>eko</title>
+  <!-- bower:css -->
+  <!-- endbower -->
 </head>
 <body>
   <h1>eko</h1>
   <ul></ul>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <!-- bower:js -->
+  <!-- endbower -->
   <script>
     var socket = io();
     socket.on('event', function(msg){
