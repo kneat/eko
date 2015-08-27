@@ -1,14 +1,15 @@
 {
   "name": "eko",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "listens for log events to come in over HTTP and then repeats them on the command line",
   "main": "eko.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "gulp"
   },
   "bin": {
     "eko": "eko.js"
   },
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/kneat/eko.git"
