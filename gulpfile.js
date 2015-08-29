@@ -9,6 +9,12 @@ var sass = require('gulp-sass');
 var streamqueue = require('streamqueue').obj;
 var flatten = require('gulp-flatten');
 var debug = require('gulp-debug');
+var gutil = require('gulp-util');
+
+function errorHandler(err){
+  gutil.log(gutil.colors.red('Error'), err.message);
+  this.end();
+}
 
 gulp.task('clean', function(cb){
    del('client', cb);
@@ -46,7 +52,9 @@ gulp.task('js:clean', function(cb){
 
 gulp.task('js', ['js:clean'], function(){
    var jsx = gulp.src('src/*.jsx')
-   .pipe(babel());
+   .pipe(babel())
+   .on('error', errorHandler)
+   .pipe(debug());
 
    var deps = gulp.src(wiredep().js);
 
