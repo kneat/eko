@@ -14,13 +14,15 @@
       </div>
     </div>
   </header>
-  <ul></ul>
+  <div id="log" class="container-fluid">
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="core.js"></script>
   <script>
     var socket = io();
     socket.on('event', function(msg){
-      $('ul').append($('<li>').text(msg.logger + ' ' + msg.level + ' ' + msg.message ));
+      $('ul').append();
+      // $('ul').append($('<li>').text(msg.logger + ' ' + msg.level + ' ' + msg.message ));
     });
   </script>  
 </body>

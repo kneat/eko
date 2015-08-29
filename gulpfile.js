@@ -4,6 +4,9 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var minify = require('gulp-minify-css');
 var wiredep = require('wiredep');
+var babel = require('gulp-babel');
+var streamqueue = require('streamqueue').obj;
+var debug = require('gulp-debug');
 
 gulp.task('clean', function(cb){
    del('client', cb);
@@ -25,7 +28,12 @@ gulp.task('js:clean', function(cb){
 });
 
 gulp.task('js', ['js:clean'], function(){
-   return gulp.src(wiredep().js)
+   var jsx = gulp.src('src/*.jsx')
+   .pipe(babel());
+
+   var deps = gulp.src(wiredep().js);
+
+   return streamqueue(deps, jsx)
    .pipe(concat('core.js'))
    .pipe(uglify())
    .pipe(gulp.dest('client'));   
@@ -46,7 +54,8 @@ gulp.task('html', ['html:clean'], function(cb){
 });
 
 gulp.task('watch', ['default'], function(){
-   gulp.watch('src/*', ['html']);
+   gulp.watch('src/*.html', ['html']);
+   gulp.watch('src/*.jsx', ['js']);
 });
 
 gulp.task('default', ['js', 'css', 'html']);
