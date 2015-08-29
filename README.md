@@ -6,11 +6,16 @@ eko listens for log events to come in over HTTP and then repeats them on the com
 ```bash
 $ npm install -g eko
 ```
+
+This will install socket.io as a dependency which may generate some safe to
+ignore errors trying to compile.
+
 ## Quick Start
 
 ```bash
 $ eko
-eko is now listening at http://0.0.0.0:4560
+GET http://localhost:4561/
+POST http://localhost:4560/
 ```
 
 ## NLog

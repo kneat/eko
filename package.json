@@ -1,6 +1,6 @@
 {
   "name": "eko",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "listens for log events to come in over HTTP and then repeats them on the command line",
   "main": "eko.js",
   "scripts": {
