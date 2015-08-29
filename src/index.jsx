@@ -15,9 +15,14 @@ var App = React.createClass({
     var nextEvents = this.state.events.concat(logEvent);
     this.setState({events: nextEvents});
   },
+  clear: function(logEvent){
+    this.setState({events: []});
+  },
   componentDidMount: function(){
     var socket = io();
     socket.on('event', this.newEvent);
+
+    $('#clear').click(this.clear);
   },
   render: function() {
     return (

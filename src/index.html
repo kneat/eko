@@ -12,18 +12,18 @@
           eko
         </a>
       </div>
-    </div>
-  </header>
-  <div id="log" class="container-fluid">
+      <button
+        type="button"
+        id="clear"
+        class="btn btn-default navbar-btn"
+        title="Clear eko log.">
+      <span class="glyphicon glyphicon-ban-circle"></span>
+    </button>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="core.js"></script>
-  <script>
-    var socket = io();
-    socket.on('event', function(msg){
-      $('ul').append();
-      // $('ul').append($('<li>').text(msg.logger + ' ' + msg.level + ' ' + msg.message ));
-    });
-  </script>  
+</header>
+<div id="log" class="container-fluid">
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="core.js"></script>
 </body>
 </html>
