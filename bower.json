@@ -7,7 +7,6 @@
       "overrides": {
          "bootstrap-sass": {
             "main": [
-            "assets/stylesheets/bootstrap/_theme.scss",
             "assets/stylesheets/_bootstrap.scss",
             "assets/javascripts/bootstrap.js"
             ]
