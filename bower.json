@@ -3,5 +3,14 @@
    "dependencies": {
       "bootstrap-sass": "~3.3.5",
       "react": "~0.13.3"
+      },
+      "overrides": {
+         "bootstrap-sass": {
+            "main": [
+            "assets/stylesheets/bootstrap/_theme.scss",
+            "assets/stylesheets/_bootstrap.scss",
+            "assets/javascripts/bootstrap.js"
+            ]
+         }
+      }
    }
-}
