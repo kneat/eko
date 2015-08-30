@@ -1,7 +1,7 @@
 {
-  "name": "eko",
-  "dependencies": {
-    "bootstrap": "3.3.4",
-    "react": "~0.13.3"
-  }
+   "name": "eko",
+   "dependencies": {
+      "bootstrap-sass": "~3.3.5",
+      "react": "~0.13.3"
+   }
 }

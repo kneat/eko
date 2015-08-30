@@ -25,9 +25,9 @@ gulp.task('fonts:clean', function(cb){
 });
 
 gulp.task('fonts', ['fonts:clean'], function(){
-   return gulp.src('bower_components/*/dist/fonts/*')
+   return gulp.src('bower_components/**/fonts/bootstrap/*')
       .pipe(flatten())
-      .pipe(gulp.dest('client/fonts'));
+      .pipe(gulp.dest('client/fonts/bootstrap'));
 });
 
 gulp.task('css:clean', function(cb){
@@ -35,13 +35,9 @@ gulp.task('css:clean', function(cb){
 });
 
 gulp.task('css', ['css:clean'], function(){
-   var scss = gulp.src('src/*.scss')
-   .pipe(sass());
-
-   var deps = gulp.src(wiredep().css);
-
-   return streamqueue(deps, scss)
-   .pipe(concat('core.css'))
+   return gulp.src(wiredep().scss.concat('src/*.scss'))
+   .pipe(concat('core.scss'))
+   .pipe(sass())
    .pipe(minify())
    .pipe(gulp.dest('client'));   
 });
