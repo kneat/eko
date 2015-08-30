@@ -10,19 +10,22 @@ body {
    height: 100%;
    overflow: auto;
 
-   .table tr {
-
-      td:nth-child(1){
-         width: 30px;
+   .table {
+      tr {
+         td:nth-child(1){
+            width: 30px;
+         }
+         td:nth-child(2){
+            white-space: pre;
+            font-family: monospace;
+         }
+         td:nth-child(3){
+            width: 140px;
+         }
       }
 
-      td:nth-child(2){
-         white-space: pre;
-         font-family: monospace;
-      }
-
-      td:nth-child(3){
-         width: 140px;
+      tr:warn {
+         
       }
    }
 }
