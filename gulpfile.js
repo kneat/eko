@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var del = require('del');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var minify = require('gulp-minify-css');
 var wiredep = require('wiredep');
 var babel = require('gulp-babel');
 var sass = require('gulp-sass');
@@ -35,10 +34,9 @@ gulp.task('css:clean', function(cb){
 });
 
 gulp.task('css', ['css:clean'], function(){
-   return gulp.src(wiredep().scss.concat('src/*.scss'))
-   .pipe(concat('core.scss'))
-   .pipe(sass())
-   .pipe(minify())
+   return gulp.src('src/index.scss')
+   .pipe(wiredep.stream())
+   .pipe(sass({outputStyle: 'compressed'}))
    .pipe(gulp.dest('client'));   
 });
 
