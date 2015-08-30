@@ -20,5 +20,9 @@ body {
          white-space: pre;
          font-family: monospace;
       }
+
+      td:nth-child(3){
+         width: 140px;
+      }
    }
 }
