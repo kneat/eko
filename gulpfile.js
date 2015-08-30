@@ -30,13 +30,14 @@ gulp.task('fonts', ['fonts:clean'], function(){
 });
 
 gulp.task('css:clean', function(cb){
-   del('client/*.css', cb);
+   del('client/index.css', cb);
 });
 
 gulp.task('css', ['css:clean'], function(){
    return gulp.src('src/index.scss')
    .pipe(wiredep.stream())
    .pipe(sass({outputStyle: 'compressed'}))
+   .on('error', errorHandler)
    .pipe(gulp.dest('client'));   
 });
 

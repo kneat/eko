@@ -27,8 +27,47 @@ body {
          }
       }
 
-      tr:warn {
+      tr.log-error, tr.log-fatal {
+         color: $state-danger-text;
+         background-color: $state-danger-bg;
 
+         span.glyphicon {
+            @extend .glyphicon-exclamation-sign;
+         }
       }
+
+      tr.log-warn {
+         color: $state-warning-text;
+         background-color: $state-warning-bg;
+
+         span.glyphicon {
+            @extend .glyphicon-warning-sign;
+         }
+      }
+
+      tr.log-info {
+         color: $state-info-text;
+         /*background-color: $state-info-bg;*/
+
+         span.glyphicon {
+            @extend .glyphicon-info-sign;
+         }
+      }
+
+      tr.log-debug {
+
+         span.glyphicon {
+            @extend .glyphicon-wrench;
+         }
+      }
+
+      tr.log-trace {
+         color: $text-muted;
+
+         span.glyphicon {
+            @extend .glyphicon-wrench;
+         }
+      }
+
    }
 }

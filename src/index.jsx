@@ -1,26 +1,15 @@
 var LogList = React.createClass({
   render: function() {
-    var rowClass = function(level){
-      switch(level){
-        case 'fatal': return 'text-danger';
-        case 'error': return 'text-danger';
-        case 'warn': return 'text-warning';
-        case 'warn': return 'text-warning';
-        case 'info': return '';
-        case 'debug': return 'text-muted';
-        case 'trace': return 'text-muted';
-      }
-    };
     var createEvent = function(logEvent, index) {
-      return <tr className={logEvent.level}>
+      return <tr className={"log-" + logEvent.level}>
       <td>
-        <span className="glyphicon glyphicon-info-sign"></span>
+        <span className="glyphicon"></span>
       </td>
       <td>{logEvent.message}</td>
       <td>{logEvent.logger}</td>
       </tr>;
     };
-    return <table className="table">
+    return <table className="table table-condensed">
     <tbody>{this.props.events.map(createEvent)}</tbody>
     </table>;
   }
