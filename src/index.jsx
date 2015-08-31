@@ -20,7 +20,9 @@ var App = React.createClass({
     return {events: []};
   },
   newEvent: function(logEvent){
-    var nextEvents = this.state.events.concat(logEvent);
+    var nextEvents = this.state.events
+      .slice(-10000)
+      .concat(logEvent);
     this.setState({events: nextEvents});
   },
   clear: function(logEvent){
