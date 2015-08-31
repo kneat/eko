@@ -1,7 +1,7 @@
 var LogList = React.createClass({
   render: function() {
     var createEvent = function(logEvent, index) {
-      return <tr className={"log-" + logEvent.level}>
+      return <tr className={"log-" + logEvent.level.toLowerCase()}>
       <td>
         <span className="glyphicon"></span>
       </td>
