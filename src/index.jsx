@@ -21,8 +21,11 @@ var LogList = React.createClass({
 });
 
 var LatestButton = React.createClass({
+   handleClick: function(){
+      this.props.go();
+   },
    render: function(){
-      return <button type="button" className="btn btn-primary">
+      return <button type="button" className="btn btn-primary" onClick={this.handleClick}>
       <span className="glyphicon glyphicon-chevron-down"></span>
       Latest
       </button>
@@ -46,7 +49,23 @@ var App = React.createClass({
       var nextEvents = this.state.events
       .slice(-10000)
       .concat(logEvent);
+
+      var wasAtBottom = this.state.atBottom;
+
       this.setState({events: nextEvents});
+
+      console.log('wasAtBottom')
+      this.gotoLatest();
+   },
+   gotoLatest: function(){
+      var $container = $(React.findDOMNode(this));
+      var $list = $(React.findDOMNode(this.refs.list));
+
+      $container.stop();
+      $container.animate({ 
+         scrollTop: $list.height() - $container.height()}, 
+         { duration: 1100, queue: false }
+         );
    },
    clear: function(){
       this.setState({events: []});
@@ -61,7 +80,7 @@ var App = React.createClass({
       return (
          <div id='log' onScroll={this.handleScroll}>
          <LogList ref='list' events={this.state.events} />
-         { this.state.atBottom ? null : <LatestButton /> }
+         { this.state.atBottom ? null : <LatestButton go={this.gotoLatest} /> }
          </div>
          );
    }
