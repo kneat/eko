@@ -7,11 +7,21 @@ html {
 body {
    height: 100%;
    padding-top: 50px;
+   position: relative;
 }
 
+#body { height: 100%; }
 #log {
    height: 100%;
+   width: 100%;
    overflow: auto;
+
+   button {
+      display: block;
+      position: absolute;
+      bottom: 12px;
+      right: 35px;
+   }
 
    .table {
       tr {

@@ -1,9 +1,12 @@
 /*global React, io, $*/
 
+var eventId = 0;
+
 var LogList = React.createClass({
    render: function() {
       var createEvent = function(logEvent) {
-         return <tr className={'log-' + logEvent.level.toLowerCase()}>
+         return <tr key={++eventId}
+         className={'log-' + logEvent.level.toLowerCase()}>
          <td>
          <span className="glyphicon"></span>
          </td>
@@ -17,9 +20,27 @@ var LogList = React.createClass({
    }
 });
 
+var LatestButton = React.createClass({
+   render: function(){
+      return <button type="button" className="btn btn-primary">
+      <span className="glyphicon glyphicon-chevron-down"></span>
+      Latest
+      </button>
+   }
+});
+
+
 var App = React.createClass({
    getInitialState: function() {
-      return {events: []};
+      return {events: [], atBottom: true};
+   },
+   handleScroll: function(e){
+      var $container = $(e.target);
+      var $list = $(React.findDOMNode(this.refs.list));
+
+      this.setState({
+         atBottom: $container.scrollTop() + $container.height() > $list.height() - 5
+      })
    },
    newEvent: function(logEvent){
       var nextEvents = this.state.events
@@ -38,10 +59,13 @@ var App = React.createClass({
    },
    render: function() {
       return (
-         <LogList events={this.state.events} />
+         <div id='log' onScroll={this.handleScroll}>
+         <LogList ref='list' events={this.state.events} />
+         { this.state.atBottom ? null : <LatestButton /> }
+         </div>
          );
    }
 });
 
-React.render(<App />, document.getElementById('log'));
+React.render(<App />, document.getElementById('body'));
 
