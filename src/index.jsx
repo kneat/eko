@@ -2,18 +2,42 @@
 
 var eventId = 0;
 
+var MessageDetails = React.createClass({
+   render: function() {
+      return <div>
+      <span>{this.props.message.message}</span >
+      <span>{this.props.message.logger}</span>
+      </div>;
+   }
+});
+
+
+var LogEntry = React.createClass({
+   handleClick: function(){
+      this.props.select(this.props.event);
+   },
+   render: function() {
+      return <tr key={this.props.key}
+      className={'log-' + this.props.event.level.toLowerCase()}>
+      <td>
+      <span className="glyphicon"></span>
+      </td>
+      <td onClick={this.handleClick}>{this.props.event.message}</td>
+      <td>{this.props.event.logger}</td>
+      </tr>;
+   }
+});
+
 var LogList = React.createClass({
    render: function() {
-      var createEvent = function(logEvent) {
-         return <tr key={++eventId}
-         className={'log-' + logEvent.level.toLowerCase()}>
-         <td>
-         <span className="glyphicon"></span>
-         </td>
-         <td>{logEvent.message}</td>
-         <td>{logEvent.logger}</td>
-         </tr>;
-      };
+      var createEvent = (function(select){ return function(logEvent) {
+         return <LogEntry
+            key={++eventId}
+            event={logEvent}
+            select={select} />;
+         };
+      })(this.props.select);
+
       return <table className="table table-condensed">
       <tbody>{this.props.events.map(createEvent)}</tbody>
       </table>;
@@ -35,7 +59,7 @@ var LatestButton = React.createClass({
 
 var App = React.createClass({
    getInitialState: function() {
-      return {events: [], atBottom: true};
+      return {events: [], atBottom: true, selected: null};
    },
    handleScroll: function(e){
       var $container = $(e.target);
@@ -68,7 +92,10 @@ var App = React.createClass({
          );
    },
    clear: function(){
-      this.setState({events: []});
+      this.setState({events: [], selected: null});
+   },
+   select: function(message){
+      this.setState({selected: message});
    },
    componentDidMount: function(){
       var socket = io();
@@ -79,8 +106,9 @@ var App = React.createClass({
    render: function() {
       return (
          <div id='log' onScroll={this.handleScroll}>
-         <LogList ref='list' events={this.state.events} />
+         <LogList ref='list' events={this.state.events} select={this.select} />
          { this.state.atBottom ? null : <LatestButton go={this.gotoLatest} /> }
+         { this.state.selected != null ? <MessageDetails message={this.state.selected} /> : null }
          </div>
          );
    }

@@ -54,6 +54,7 @@ gulp.task('js', ['js:clean'], function(){
    var deps = gulp.src(wiredep().js);
 
    return streamqueue(deps, jsx)
+   .pipe(debug({title: 'core.js'}))
    .pipe(concat('core.js'))
    .pipe(uglify())
    .pipe(gulp.dest('client'));   
