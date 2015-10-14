@@ -9,10 +9,24 @@ var streamqueue = require('streamqueue').obj;
 var flatten = require('gulp-flatten');
 var debug = require('gulp-debug');
 var gutil = require('gulp-util');
+var path = require('path');
+
+var wiredepInlineCss = {
+   fileTypes: {
+      scss: {
+         replace: {
+            css: function(filePath){
+               var withoutIndex = filePath.substring(0, filePath.length - 4);
+               return '@import "' + withoutIndex + '";';
+            }
+         }
+      }
+   }
+};
 
 function errorHandler(err){
-  gutil.log(gutil.colors.red('Error'), err.message);
-  this.end();
+ gutil.log(gutil.colors.red('Error'), err.message);
+ this.end();
 }
 
 gulp.task('clean', function(cb){
@@ -25,8 +39,8 @@ gulp.task('fonts:clean', function(cb){
 
 gulp.task('fonts', ['fonts:clean'], function(){
    return gulp.src('bower_components/**/fonts/bootstrap/*')
-      .pipe(flatten())
-      .pipe(gulp.dest('client/fonts/bootstrap'));
+   .pipe(flatten())
+   .pipe(gulp.dest('client/fonts/bootstrap'));
 });
 
 gulp.task('css:clean', function(cb){
@@ -35,8 +49,8 @@ gulp.task('css:clean', function(cb){
 
 gulp.task('css', ['css:clean'], function(){
    return gulp.src('src/index.scss')
-   .pipe(wiredep.stream())
-   .pipe(sass({outputStyle: 'compressed'}))
+   .pipe(wiredep.stream(wiredepInlineCss))
+   .pipe(sass())//{outputStyle: 'compressed'}))
    .on('error', errorHandler)
    .pipe(gulp.dest('client'));   
 });
@@ -69,6 +83,17 @@ gulp.task('html:clean', function(cb){
    del('client/*.html', cb);
 });
 
+
+gulp.task('images:clean', function(){
+   return del(['client/*.gif', 'client/*.png']);
+});
+
+
+gulp.task('images', ['images:clean'], function(){
+   return gulp.src("bower_components/fancybox/source/*.{png,gif}")
+   .pipe(gulp.dest('client'));
+});
+
 gulp.task('html', ['html:clean'], function(cb){
    return gulp.src('src/*.html')
    .pipe(gulp.dest('client'));
@@ -80,4 +105,4 @@ gulp.task('watch', ['default'], function(){
    gulp.watch('src/*.scss', ['css']);
 });
 
-gulp.task('default', ['js', 'css', 'fonts', 'html']);
+gulp.task('default', ['js', 'css', 'fonts', 'html', 'images']);

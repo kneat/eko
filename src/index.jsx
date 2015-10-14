@@ -4,8 +4,8 @@ var eventId = 0;
 
 var MessageDetails = React.createClass({
    render: function() {
-      return <div>
-      <span>{this.props.message.message}</span >
+      return <div id='details'>
+      <span>{this.props.message.message}</span>
       <span>{this.props.message.logger}</span>
       </div>;
    }
@@ -95,7 +95,10 @@ var App = React.createClass({
       this.setState({events: [], selected: null});
    },
    select: function(message){
-      this.setState({selected: message});
+      //this.setState({selected: message});
+      $.fancybox.open([
+         {content: message.message, title: message.logger, type: 'html'}
+      ]);
    },
    componentDidMount: function(){
       var socket = io();
