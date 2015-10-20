@@ -4,8 +4,8 @@ var eventId = 0;
 
 var MessageDetails = React.createClass({
    render: function() {
-      return <div id='details'>
-      <span>{this.props.message.message}</span>
+      return <div className="container" id='details'>
+      <pre>{this.props.message.message}</pre>
       <span>{this.props.message.logger}</span>
       </div>;
    }
@@ -32,16 +32,16 @@ var LogList = React.createClass({
    render: function() {
       var createEvent = (function(select){ return function(logEvent) {
          return <LogEntry
-            key={++eventId}
-            event={logEvent}
-            select={select} />;
-         };
-      })(this.props.select);
+         key={++eventId}
+         event={logEvent}
+         select={select} />;
+      };
+   })(this.props.select);
 
-      return <table className="table table-condensed">
-      <tbody>{this.props.events.map(createEvent)}</tbody>
-      </table>;
-   }
+   return <table className="table table-condensed">
+   <tbody>{this.props.events.map(createEvent)}</tbody>
+   </table>;
+}
 });
 
 var LatestButton = React.createClass({
@@ -95,10 +95,7 @@ var App = React.createClass({
       this.setState({events: [], selected: null});
    },
    select: function(message){
-      //this.setState({selected: message});
-      $.fancybox.open([
-         {content: message.message, title: message.logger, type: 'html'}
-      ]);
+      this.setState({selected: message});
    },
    componentDidMount: function(){
       var socket = io();

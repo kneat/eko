@@ -88,7 +88,6 @@ gulp.task('images:clean', function(){
    return del(['client/*.gif', 'client/*.png']);
 });
 
-
 gulp.task('images', ['images:clean'], function(){
    return gulp.src("bower_components/fancybox/source/*.{png,gif}")
    .pipe(gulp.dest('client'));

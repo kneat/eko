@@ -2,8 +2,7 @@
   "name": "eko",
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
-    "react": "~0.13.3",
-    "fancybox": "~2.1.5"
+    "react": "~0.13.3"
   },
   "overrides": {
     "bootstrap-sass": {
