@@ -4,7 +4,7 @@ var eventId = 0;
 
 var MessageDetails = React.createClass({
    render: function() {
-      return <div className="container" id='details'>
+      return <div className="container">
       <pre>{this.props.message.message}</pre>
       <span>{this.props.message.logger}</span>
       </div>;
@@ -30,11 +30,11 @@ var LogEntry = React.createClass({
 
 var LogList = React.createClass({
    render: function() {
-      var createEvent = (function(select){ return function(logEvent) {
+      var createEvent = (function(select){ return function(logEvent, index) {
          return <LogEntry
-         key={++eventId}
+         key={index}
          event={logEvent}
-         select={select} />;
+         select={function(){select(index);}} />;
       };
    })(this.props.select);
 
@@ -59,7 +59,11 @@ var LatestButton = React.createClass({
 
 var App = React.createClass({
    getInitialState: function() {
-      return {events: [], atBottom: true, selected: null};
+      return {
+         events: [],
+         atBottom: true,
+         selectedIndex: null
+      };
    },
    handleScroll: function(e){
       var $container = $(e.target);
@@ -92,10 +96,10 @@ var App = React.createClass({
          );
    },
    clear: function(){
-      this.setState({events: [], selected: null});
+      this.setState({events: [], selectedIndex: null});
    },
-   select: function(message){
-      this.setState({selected: message});
+   select: function(messageIndex){
+      this.setState({selectedIndex: messageIndex});
    },
    componentDidMount: function(){
       var socket = io();
@@ -108,7 +112,8 @@ var App = React.createClass({
          <div id='log' onScroll={this.handleScroll}>
          <LogList ref='list' events={this.state.events} select={this.select} />
          { this.state.atBottom ? null : <LatestButton go={this.gotoLatest} /> }
-         { this.state.selected != null ? <MessageDetails message={this.state.selected} /> : null }
+         { this.state.selectedIndex != null ?
+            <MessageDetails message={this.state.events[this.state.selectedIndex]} /> : null }
          </div>
          );
    }
