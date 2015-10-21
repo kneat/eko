@@ -4,6 +4,7 @@
 // bower:css
 // endbower
 
+@import 'dialog';
 
 html {
    height: 100%;
@@ -41,6 +42,12 @@ body {
          }
          td:nth-child(3){
             width: 140px;
+         }
+      }
+
+      tr[aria-selected='true'] {
+         td:nth-child(1){
+            background-color: #AAAAAA;
          }
       }
 

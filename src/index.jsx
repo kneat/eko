@@ -1,13 +1,16 @@
 /*global React, io, $*/
 
-var eventId = 0;
-
 var MessageDetails = React.createClass({
+   handleClick: function(){
+      this.props.deselect();
+   },
    render: function() {
-      return <div className="container">
+      return <dialog open onClick={this.handleClick}>
+      <header>
+      {this.props.message.logger}
+      </header>
       <pre>{this.props.message.message}</pre>
-      <span>{this.props.message.logger}</span>
-      </div>;
+      </dialog>;
    }
 });
 
@@ -17,26 +20,29 @@ var LogEntry = React.createClass({
       this.props.select(this.props.event);
    },
    render: function() {
-      return <tr key={this.props.key}
-      className={'log-' + this.props.event.level.toLowerCase()}>
-      <td>
-      <span className="glyphicon"></span>
-      </td>
-      <td onClick={this.handleClick}>{this.props.event.message}</td>
-      <td>{this.props.event.logger}</td>
+      return <tr
+            key={this.props.key}
+            aria-selected={this.props.selected}
+            className={'log-' + this.props.event.level.toLowerCase() + ' ' + this.props.selected}>
+         <td>
+         <span className="glyphicon"></span>
+         </td>
+         <td onClick={this.handleClick}>{this.props.event.message}</td>
+         <td>{this.props.event.logger}</td>
       </tr>;
    }
 });
 
 var LogList = React.createClass({
    render: function() {
-      var createEvent = (function(select){ return function(logEvent, index) {
+      var createEvent = (function(select, selectedIndex){ return function(logEvent, index) {
          return <LogEntry
          key={index}
          event={logEvent}
+         selected={selectedIndex == index}
          select={function(){select(index);}} />;
       };
-   })(this.props.select);
+   })(this.props.select, this.props.selectedIndex);
 
    return <table className="table table-condensed">
    <tbody>{this.props.events.map(createEvent)}</tbody>
@@ -101,6 +107,9 @@ var App = React.createClass({
    select: function(messageIndex){
       this.setState({selectedIndex: messageIndex});
    },
+   deselect: function(){
+      this.setState({selectedIndex: null});
+   },
    componentDidMount: function(){
       var socket = io();
       socket.on('event', this.newEvent);
@@ -110,12 +119,18 @@ var App = React.createClass({
    render: function() {
       return (
          <div id='log' onScroll={this.handleScroll}>
-         <LogList ref='list' events={this.state.events} select={this.select} />
+         <LogList ref='list'
+            events={this.state.events}
+            select={this.select}
+            selectedIndex={this.state.selectedIndex}/>
          { this.state.atBottom ? null : <LatestButton go={this.gotoLatest} /> }
          { this.state.selectedIndex != null ?
-            <MessageDetails message={this.state.events[this.state.selectedIndex]} /> : null }
-         </div>
-         );
+            <MessageDetails
+            deselect={this.deselect}
+            message={this.state.events[this.state.selectedIndex]}/>
+            : null }
+            </div>
+            );
    }
 });
 
